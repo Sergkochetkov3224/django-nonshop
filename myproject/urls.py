@@ -16,3 +16,12 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", home),  # Добавляем главную страницу
 ]
+from django.contrib.auth.models import User
+
+def create_superuser(request):
+    if not User.objects.filter(username="admin").exists():
+        User.objects.create_superuser("admin", "admin@example.com", "adminpassword")
+        return HttpResponse("Суперюзер создан! Логин: sergkochetkov | Пароль: Sergey2005")
+    return HttpResponse("Суперюзер уже существует!")
+
+urlpatterns.append(path("create-admin/", create_superuser))
