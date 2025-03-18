@@ -25,3 +25,10 @@ def create_superuser(request):
     return HttpResponse("Суперюзер уже существует!")
 
 urlpatterns.append(path("create-admin/", create_superuser))
+from django.core.management import call_command
+
+def migrate(request):
+    call_command("migrate")
+    return HttpResponse("Миграции успешно выполнены!")
+
+urlpatterns.append(path("migrate/", migrate))
